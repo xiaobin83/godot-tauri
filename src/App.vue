@@ -1,6 +1,6 @@
 <template>
   <main class="container">
-	<iframe id="godot_frame" src="/public/godot/PlayGround.html" width="100%" height="100%" frameborder="0"></iframe>
+	<iframe id="godot_frame" src="/godot/PlayGround.html" width="100%" height="100%" frameborder="0"></iframe>
   </main>
 </template>
 
