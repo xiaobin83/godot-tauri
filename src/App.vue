@@ -4,11 +4,17 @@
   </main>
 </template>
 
-<script lang="ts">
-</script>
-
 <script lang="ts" setup>
-import { onMounted } from 'vue';
+import { onMounted, onBeforeUnmount} from 'vue';
+import { invoke } from '@tauri-apps/api/core';
+
+const handleMessage = (event: MessageEvent) => {
+  console.log(event.data)
+  if (event.data == 'toggleConsole') {
+    invoke("toggle_console");
+  }
+}
+
 onMounted(() => {
   const iframe = document.getElementById('godot_frame') as HTMLIFrameElement | null;
   if (iframe) {
@@ -20,11 +26,19 @@ onMounted(() => {
           doc.body.style.backgroundColor = 'transparent';
         }
       } catch (e) {
-        // 可能跨域，忽略
       }
     });
   }
+
+  window.addEventListener('message', handleMessage);
+
 });
+
+onBeforeUnmount(() => {
+  window.removeEventListener('message', handleMessage)
+})
+
+
 </script>
 
 <style>
